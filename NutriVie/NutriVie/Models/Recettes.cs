@@ -14,7 +14,6 @@ namespace NutriVie.Models
         public string Nom { get; set; }
 
         public string Description { get; set; }
-
         public int TempsPreparation { get; set; }
 
         public int TempsCuisson { get; set; }
