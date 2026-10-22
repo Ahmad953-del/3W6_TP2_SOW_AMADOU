@@ -9,7 +9,8 @@ namespace NutriVie.Models
     {
         [Key]
         public int Id { get; set; }
-
+        [Required]
+        
         public string Nom { get; set; }
 
         public string Description { get; set; }
@@ -22,7 +23,7 @@ namespace NutriVie.Models
         [ForeignKey("Categorie")]
         public int CategorieId { get; set; }
         [ValidateNever]
-        public Categorie Categorie { get; set; }
+        public virtual Categorie Categorie { get; set; }
 
     }
 }
