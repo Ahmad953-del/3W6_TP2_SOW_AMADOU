@@ -27,9 +27,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Image)
             </th>
-            <th>
+            @* <th>
                 @Html.DisplayNameFor(model => model.CategorieId)
-            </th>
+            </th> *@
             <th>
                 @Html.DisplayNameFor(model => model.Categorie)
             </th>
@@ -52,13 +52,13 @@
                 @Html.DisplayFor(model => item.TempsCuisson)
             </td>
             <td>
-                <img src="/images/@item.Image"/>
+                <img src="/images/@item.Image" style="width: 500px; height: auto "/>
             </td>
-            <td>
+            @* <td>
                 @Html.DisplayFor(model => item.CategorieId)
-            </td>
+            </td> *@
             <td>
-                @Html.DisplayFor(model => item.Categorie)
+                @Html.DisplayFor(model => item.Categorie.Nom)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

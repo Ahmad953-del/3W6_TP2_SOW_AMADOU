@@ -16,7 +16,8 @@ public class RecettesController : Controller
     // GET: RECETTESS
     public async Task<IActionResult> Index()    
     {
-        return View(await _context.Recettes.ToListAsync());
+        // Ajouter .Include(=> r.categorie).ToListAsync()) pour afficher le nom de la catégorie
+        return View(await _context.Recettes.Include(r => r.Categorie).ToListAsync());
     }
 
     // GET: RECETTESS/Details/5
