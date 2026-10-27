@@ -28,7 +28,7 @@ public class RecettesController : Controller
             return NotFound();
         }
 
-        var recettes = await _context.Recettes
+        var recettes = await _context.Recettes.Include(c => c.Categorie)
             .FirstOrDefaultAsync(m => m.Id == id);
         if (recettes == null)
         {
@@ -119,7 +119,7 @@ public class RecettesController : Controller
             return NotFound();
         }
 
-        var recettes = await _context.Recettes
+        var recettes = await _context.Recettes.Include(s => s.Categorie)
             .FirstOrDefaultAsync(m => m.Id == id);
         if (recettes == null)
         {
