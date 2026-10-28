@@ -1,5 +1,6 @@
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NutriVie.Models;
 using NutriVie.Models.Data;
@@ -17,7 +18,9 @@ public class RecettesController : Controller
     public async Task<IActionResult> Index()    
     {
         // Ajouter .Include(=> r.categorie).ToListAsync()) pour afficher le nom de la catégorie
-        return View(await _context.Recettes.Include(r => r.Categorie).ToListAsync());
+        var recettes = await _context.Recettes.Include(c => c.Categorie).ToListAsync();
+        //return View(await _context.Recettes.Include(r => r.Categorie).OrderBy(c => c.Categorie.Nom).ToListAsync());
+        return View(recettes.OrderBy(c => c.Categorie.Nom).ToList());
     }
 
     // GET: RECETTESS/Details/5
@@ -73,6 +76,7 @@ public class RecettesController : Controller
         {
             return NotFound();
         }
+        ViewBag.Categorie = new SelectList(_context.Categorie, "Id", "Nom", recettes.CategorieId);
         return View(recettes);
     }
 
@@ -108,6 +112,7 @@ public class RecettesController : Controller
             }
             return RedirectToAction(nameof(Index));
         }
+        ViewBag.Categorie = new SelectList(_context.Categorie, "Id", "Nom", recettes.CategorieId);
         return View(recettes);
     }
 

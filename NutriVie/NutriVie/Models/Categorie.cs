@@ -10,7 +10,11 @@ namespace NutriVie.Models
         [Required]
         public string Nom { get; set; }
         [ValidateNever]
-        List<Recettes>? Recettes { get; set; }
+        public List<Recettes>? Recettes { get; set; }
+
+        [Display(Name = "Catégorie")]
+        public int CategorieId { get; set; }
+
 
     }
 }

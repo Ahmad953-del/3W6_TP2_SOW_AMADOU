@@ -16,7 +16,7 @@ namespace NutriVie.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.12")
+                .HasAnnotation("ProductVersion", "10.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -28,6 +28,9 @@ namespace NutriVie.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CategorieId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Nom")
                         .IsRequired()
@@ -41,31 +44,36 @@ namespace NutriVie.Migrations
                         new
                         {
                             Id = 1,
+                            CategorieId = 0,
                             Nom = "Française"
                         },
                         new
                         {
                             Id = 2,
+                            CategorieId = 0,
                             Nom = "Indienne"
                         },
                         new
                         {
                             Id = 3,
+                            CategorieId = 0,
                             Nom = "Africaine"
                         },
                         new
                         {
                             Id = 4,
+                            CategorieId = 0,
                             Nom = "Italienne"
                         },
                         new
                         {
                             Id = 5,
+                            CategorieId = 0,
                             Nom = "Orientale"
                         });
                 });
 
-            modelBuilder.Entity("NutriVie.Models.Recette", b =>
+            modelBuilder.Entity("NutriVie.Models.Recettes", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -224,7 +232,7 @@ namespace NutriVie.Migrations
                     b.ToTable("Services");
                 });
 
-            modelBuilder.Entity("NutriVie.Models.Recette", b =>
+            modelBuilder.Entity("NutriVie.Models.Recettes", b =>
                 {
                     b.HasOne("NutriVie.Models.Categorie", "Categorie")
                         .WithMany()

@@ -43,16 +43,19 @@
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
+            @* <div class="form-group">
                 <label asp-for="CategorieId" class="control-label"></label>
                 <input asp-for="CategorieId" class="form-control" />
                 <span asp-validation-for="CategorieId" class="text-danger"></span>
-            </div>
-
+            </div> *@
             <div class="form-group">
-                <label asp-for="Categorie" class="control-label"></label>
-                <input asp-for="Categorie" class="form-control" />
-                <span asp-validation-for="Categorie" class="text-danger"></span>
+                <!-- Le texte écrit ici ("Catégorie") remplace et écrase définitivement le nom de la propriété "CategorieId" à l'affichage -->
+                <label asp-for="CategorieId" class="control-label">Categorie</label>
+
+                <!-- Le sélecteur affiche le Nom de la catégorie et stocke son Id en arrière-plan -->
+                <select asp-for="CategorieId" class="form-control" asp-items="ViewBag.Categorie"></select>
+
+                <span asp-validation-for="Nom" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

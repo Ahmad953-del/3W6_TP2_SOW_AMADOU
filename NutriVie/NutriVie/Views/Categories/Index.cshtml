@@ -15,10 +15,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.Nom)
             </th>
-            <th>
+            @* <th>
                 @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th></th>
+            </th> *@
+            <th>Recettes</th>
         </tr>
     </thead>
     <tbody>
@@ -27,8 +27,22 @@
             <td>
                 @Html.DisplayFor(model => item.Nom)
             </td>
-            <td>
+            @* <td>
                 @Html.DisplayFor(model => item.Nom)
+            </td> *@
+            <td>
+                    @if(item.Recettes != null && item.Recettes.Any())
+                    {
+                        <ul class="list-unstyled mb-0">
+                            @foreach(var recette in item.Recettes)
+                            {
+                                <li>
+                                    <a asp-controller="Recettes" asp-action="Edit" asp-route-id="@recette.Id">
+                                        @recette.Nom (@recette.TempsPreparation min</a>
+                                </li>
+                            }
+                        </ul>
+                    }
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
