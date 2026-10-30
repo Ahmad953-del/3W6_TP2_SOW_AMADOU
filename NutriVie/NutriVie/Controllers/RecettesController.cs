@@ -42,8 +42,12 @@ public class RecettesController : Controller
     }
 
     // GET: RECETTESS/Create
-    public IActionResult Create()
+    public async Task<IActionResult> Create()
     {
+
+        
+        ViewBag.Categorie = new SelectList(_context.Categorie, "Id", "Nom" );
+
         return View();
     }
 
@@ -140,7 +144,7 @@ public class RecettesController : Controller
     public async Task<IActionResult> DeleteConfirmed(int? id)
     {
         var recettes = await _context.Recettes.FindAsync(id);
-        if (recettes != null)
+        if (recettes == null)
         {
             _context.Recettes.Remove(recettes);
         }

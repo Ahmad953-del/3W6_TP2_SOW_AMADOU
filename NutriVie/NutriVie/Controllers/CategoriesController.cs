@@ -1,6 +1,7 @@
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using NutriVie.Models;
 using NutriVie.Models.Data;
 
@@ -59,8 +60,23 @@ public class CategoriesController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("Id,Nom,Recettes")] Categorie categorie)
     {
+       
         if (ModelState.IsValid)
         {
+            // 1. Vérifier si une catégorie avec le même nom existe déjà (sans tenir compte de la casse)
+            bool categorieExite = await _context.Categorie
+            .AnyAsync(c => c.Nom.ToLower() == categorie.Nom.ToLower());
+
+            if (categorieExite)
+            {
+                // 2. Ajouter le message d'erreur ciblé sur le champ "Nom"
+                ModelState.AddModelError("Nom", "Cette catégorie exite déjà.");
+
+                // Retourner la vue avec le modèle pour afficher l'erreur
+                return View(categorie);
+            }
+
+            // 3. Si elle n'existe pas, procéder à l'ajout
             _context.Add(categorie);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -142,11 +158,19 @@ public class CategoriesController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int? id)
     {
-        var categorie = await _context.Categorie.FindAsync(id);
-        if (categorie != null)
+        // 1. Récupérer la catégorie avec ses recettes incluses
+        var categorie = await _context.Categorie
+            .Include(c => c.Recettes)
+            .FirstOrDefaultAsync(c => c.Id == id);
+
+        if (categorie != null && categorie.Recettes.Any())
         {
-            _context.Categorie.Remove(categorie);
+            ModelState.AddModelError(string.Empty, "Vous ne pouvez supprimer cette catégorie parce qu'elle contient des recettes");
+            return View(categorie);
+            
         }
+
+        _context.Categorie.Remove(categorie);
 
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
