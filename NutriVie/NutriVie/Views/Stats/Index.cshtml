@@ -1,0 +1,22 @@
+﻿@model NutriVie.ViewModels.StatVM
+
+<h1>Stats</h1>
+
+<p>Le nombre de recettes avec 3 aliments : <strong>@Model.NbRecettes3Aliments</strong></p>
+<p>L'aliment le plus calorique : <strong>@Model.AlimentPlusCalorique</strong></p>
+
+
+<h4>La liste des 4 recettes qui ont le plus court temps total (préparation et cuisson) en affichant le nom et le temps total</h4>
+<table class="table">
+    <thead>
+        <tr><th>Nom de la recette</th><th>Temps total</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model.RecettesPlusCourtes)
+        {
+            <tr><td>@r.Nom</td><td>@r.TempsTotal</td></tr>
+        }
+    </tbody>
+</table>
+
+<p>Le nombre de calories de la recette française la moins calorique : <strong>@Model.CaloriesRecetteFrancaiseMin</strong></p>

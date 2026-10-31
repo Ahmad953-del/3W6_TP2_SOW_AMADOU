@@ -22,7 +22,9 @@ namespace NutriVie.Models
         [ForeignKey("Categorie")]
         public int CategorieId { get; set; }
         [ValidateNever]
-        public virtual Categorie Categorie { get; set; }
+        public virtual Categorie? Categorie { get; set; }
+        [ValidateNever]
+        public List<AlimentRecette> AlimentRecettes { get; set; }
 
     }
 }
