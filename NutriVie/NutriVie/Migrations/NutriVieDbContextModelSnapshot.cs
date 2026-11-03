@@ -449,9 +449,6 @@ namespace NutriVie.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CategorieId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nom")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -464,31 +461,26 @@ namespace NutriVie.Migrations
                         new
                         {
                             Id = 1,
-                            CategorieId = 0,
                             Nom = "Française"
                         },
                         new
                         {
                             Id = 2,
-                            CategorieId = 0,
                             Nom = "Indienne"
                         },
                         new
                         {
                             Id = 3,
-                            CategorieId = 0,
                             Nom = "Africaine"
                         },
                         new
                         {
                             Id = 4,
-                            CategorieId = 0,
                             Nom = "Italienne"
                         },
                         new
                         {
                             Id = 5,
-                            CategorieId = 0,
                             Nom = "Orientale"
                         });
                 });

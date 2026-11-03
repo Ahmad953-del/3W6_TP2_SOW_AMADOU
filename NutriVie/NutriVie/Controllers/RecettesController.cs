@@ -157,4 +157,9 @@ public class RecettesController : Controller
     {
         return _context.Recettes.Any(e => e.Id == id);
     }
+    public IActionResult Menu()
+    {
+        var categories = _context.Categorie.Include(c => c.Recettes).ThenInclude(r => r.AlimentRecettes).ToList();
+        return View(categories);
+    }
 }

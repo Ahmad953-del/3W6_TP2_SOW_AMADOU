@@ -27,12 +27,13 @@ namespace NutriVie.Controllers
             // 3. 4 Recettes au temps total le plus court OrderBy + Take + Select 
             vm.RecettesPlusCourtes = _context.Recettes
                 .OrderBy(r => r.TempsPreparation + r.TempsCuisson)
-                .Take(4)
-                .Select(r => new RecetteTempsVM
-                {
-                    Nom = r.Nom,
-                    TempsTotal = r.TempsPreparation + r.TempsCuisson
-                }).ToList();
+                .Take(4).ToList();
+
+            //.Select(r => new RecetteTempsVM
+            //{
+            //    Nom = r.Nom,
+            //    TempsTotal = r.TempsPreparation + r.TempsCuisson
+            //})
             // 4.) Calories de la recette française la moins calorique -> Where, Min, Sum 
             vm.CaloriesRecetteFrancaiseMin = _context.Recettes
                 .Where(r => r.Categorie.Nom == "Française") // à adapter

@@ -1,0 +1,17 @@
+﻿
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nom de la recette</th>
+            <th>Nombre d'ingrédients</th>
+            <th>Temps total (min)</th>
+            <th>Statut</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var recette in Model.RecetteInfoVMs!)
+        {
+            <partial name="RecetteInfo" model="recette" />
+        }
+    </tbody>
+</table>

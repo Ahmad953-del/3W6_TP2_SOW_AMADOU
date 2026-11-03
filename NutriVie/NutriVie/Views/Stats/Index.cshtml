@@ -14,7 +14,10 @@
     <tbody>
         @foreach (var r in Model.RecettesPlusCourtes)
         {
-            <tr><td>@r.Nom</td><td>@r.TempsTotal</td></tr>
+            <tr>
+                <td>@r.Nom </td>
+                <td>@(r.TempsPreparation + r.TempsCuisson) min</td>
+            </tr>
         }
     </tbody>
 </table>

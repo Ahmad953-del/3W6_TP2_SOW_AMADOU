@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace NutriVie.Models
@@ -12,8 +13,7 @@ namespace NutriVie.Models
         [ValidateNever]
         public List<Recettes>? Recettes { get; set; }
 
-        [Display(Name = "Catégorie")]
-        public int CategorieId { get; set; }
+       
 
 
     }

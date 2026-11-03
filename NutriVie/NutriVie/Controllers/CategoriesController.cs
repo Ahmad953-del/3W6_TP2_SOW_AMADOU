@@ -175,9 +175,12 @@ public class CategoriesController : Controller
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
-
-    private bool CategorieExists(int? id)
+    // J'ai changer private pour public à vérifier.
+    public bool CategorieExists(int? id)
     {
         return _context.Categorie.Any(e => e.Id == id);
     }
+
+    
+    
 }

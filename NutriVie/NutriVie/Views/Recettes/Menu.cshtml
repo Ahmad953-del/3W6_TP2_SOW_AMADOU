@@ -1,0 +1,75 @@
+﻿@model List<Categorie>
+@{
+    ViewData["Title"] = "Recettes";
+}
+
+<h1>Recettes</h1>
+
+<div class="accordion" id="accordionRecettes">
+    @foreach (var cat in Model)
+    {
+        bool premiere = cat == Model.First();
+        string collapseId = "collapse" + cat.Id;
+
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button @(premiere ? "" : "collapsed")"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#@collapseId"
+                        aria-expanded="@(premiere ? "true" : "false")"
+                        aria-controls="@collapseId">
+                    @cat.Nom
+                </button>
+            </h2>
+
+            <div id="@collapseId"
+                 class="accordion-collapse collapse @(premiere ? "show" : "")"
+                 data-bs-parent="#accordionRecettes">
+                <div class="accordion-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nom de la recette</th>
+                                <th>Nombre d'ingrédients</th>
+                                <th>Temps total (min)</th>
+                                <th>Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var r in cat.Recettes)
+                            {
+                                int tempsTotal = r.TempsPreparation + r.TempsCuisson;
+                                string statut;
+                                string couleur;
+
+                                if (tempsTotal >= 120)
+                                {
+                                    statut = "Recette de longue durée";
+                                    couleur = "text-danger";
+                                }
+                                else if (tempsTotal >= 60)
+                                {
+                                    statut = "Recette de durée moyenne";
+                                    couleur = "text-warning";
+                                }
+                                else
+                                {
+                                    statut = "Recette de courte durée";
+                                    couleur = "text-success";
+                                }
+
+                                <tr>
+                                    <td>@r.Nom</td>
+                                    <td>@r.AlimentRecettes.Count</td>
+                                    <td>@tempsTotal</td>
+                                    <td class="@couleur">@statut</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div>
