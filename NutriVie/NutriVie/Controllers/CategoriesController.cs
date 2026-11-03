@@ -176,7 +176,7 @@ public class CategoriesController : Controller
         return RedirectToAction(nameof(Index));
     }
     // J'ai changer private pour public à vérifier.
-    public bool CategorieExists(int? id)
+    private bool CategorieExists(int? id)
     {
         return _context.Categorie.Any(e => e.Id == id);
     }

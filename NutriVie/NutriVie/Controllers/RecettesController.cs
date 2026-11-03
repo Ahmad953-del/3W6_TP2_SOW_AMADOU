@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NutriVie.Models;
 using NutriVie.Models.Data;
+using NutriVie.ViewModels;
 
 public class RecettesController : Controller
 {
@@ -160,6 +161,28 @@ public class RecettesController : Controller
     public IActionResult Menu()
     {
         var categories = _context.Categorie.Include(c => c.Recettes).ThenInclude(r => r.AlimentRecettes).ToList();
-        return View(categories);
+        var vms = new List<RecetteCategorieVM>();
+
+        //foreach (var categorie in categories)
+        //{
+        //    var catVM = new RecetteCategorieVM
+        //    {
+        //        Id = categorie.Id,
+        //        Nom = categorie.Nom,
+        //        RecetteInfoVMs = new List<RecetteInfoVM>()
+        //    };
+        //    foreach (var recette in categorie.Recettes)
+        //    {
+        //        catVM.RecetteInfoVMs.Add(new RecetteInfoVM
+        //        {
+        //            Nom = recette.Nom,
+        //            NbrIngrediens = recette.AlimentRecettes.Count,
+        //            tempsTotal = recette.TempsPreparation + recette.TempsCuisson
+        //        });
+        //    }
+        //    vms.Add(catVM);
+        //}
+
+        return View(vms);
     }
 }

@@ -1,4 +1,5 @@
-﻿@model List<Categorie>
+﻿@using NutriVie.ViewModels
+@model List<RecetteCategorieVM>
 @{
     ViewData["Title"] = "Recettes";
 }
@@ -27,47 +28,32 @@
                  class="accordion-collapse collapse @(premiere ? "show" : "")"
                  data-bs-parent="#accordionRecettes">
                 <div class="accordion-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Nom de la recette</th>
-                                <th>Nombre d'ingrédients</th>
-                                <th>Temps total (min)</th>
-                                <th>Statut</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var r in cat.Recettes)
-                            {
-                                int tempsTotal = r.TempsPreparation + r.TempsCuisson;
-                                string statut;
-                                string couleur;
-
-                                if (tempsTotal >= 120)
-                                {
-                                    statut = "Recette de longue durée";
-                                    couleur = "text-danger";
-                                }
-                                else if (tempsTotal >= 60)
-                                {
-                                    statut = "Recette de durée moyenne";
-                                    couleur = "text-warning";
-                                }
-                                else
-                                {
-                                    statut = "Recette de courte durée";
-                                    couleur = "text-success";
-                                }
-
+                    @if (cat.RecetteInfoVMs != null && cat.RecetteInfoVMs.Any())
+                    {
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td>@r.Nom</td>
-                                    <td>@r.AlimentRecettes.Count</td>
-                                    <td>@tempsTotal</td>
-                                    <td class="@couleur">@statut</td>
+                                    <th>Nom de la recette</th>
+                                    <th>Nombre d'ingrédients</th>
+                                    <th>Temps total</th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach (var r in cat.RecetteInfoVMs)
+                                {
+                                    <tr>
+                                        <td>@r.Nom</td>
+                                        <td>@r.NbrIngrediens</td>
+                                        <td>@r.tempsTotal</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p>Aucune recette dans cette catégorie.</p>
+                    }
                 </div>
             </div>
         </div>

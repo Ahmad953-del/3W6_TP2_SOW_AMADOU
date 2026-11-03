@@ -4,6 +4,7 @@ namespace NutriVie.ViewModels
 {
     public class RecetteInfoVM
     {
+        public int Id { get; set; }
         public string Nom { get; set; }
         public int NbrIngrediens { get; set; }
         public int tempsTotal { get; set; }

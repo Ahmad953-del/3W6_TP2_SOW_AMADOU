@@ -1,4 +1,6 @@
-﻿namespace NutriVie.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace NutriVie.ViewModels
 {
     public class RecetteCategorieVM
     {
